@@ -1,0 +1,1 @@
+double phoneWidth = 600;

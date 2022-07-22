@@ -1,0 +1,52 @@
+# Build folder
+build/
+
+.dart_tool/
+.packages
+pubspec.lock
+
+# Dart/Pub
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+
+# IntelliJ
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# vscode && flutter related files
+.classpath
+.project
+.settings/
+.vscode/
+
+# Android files
+**/android/**/gradle-wrapper.jar
+.gradle/
+**/android/captures/
+**/android/gradlew.bat
+**/android/gradlew
+**/android/local.properties
+**/android/key.properties
+*.jks
+
+# XCode && MacOS related files
+**/ios/Flutter/.last_build_id
+**/ios/Flutter/ephemeral
+**/ios/Flutter/app.flx
+**/ios/Flutter/app.zip
+**/ios/Flutter/flutter_assets/
+**/ios/**/*.pbxuser
+**/ios/**/*.perspectivev3
+**/ios/**/*sync/
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/Generated.xcconfig
