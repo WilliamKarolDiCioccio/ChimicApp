@@ -11,7 +11,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter        
+  intl: ^0.17.0
+  logger: ^1.1.0
   cupertino_icons: ^1.0.2
+  flutter_native_splash: ^2.2.5
 
 dev_dependencies:
   flutter_test:
@@ -19,9 +24,17 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   url_launcher: ^6.0.9
 
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/images/TempSplashScreen.png
+
 flutter:
+  generate: true 
   uses-material-design: true
   
+  assets:
+    - ./assets/images/TempLogo.png
+
   fonts:
     - family: Nexa
       fonts:
@@ -29,4 +42,5 @@ flutter:
         - asset: assets/fonts/NexaDemo-Light.ttf
         - asset: assets/fonts/NexaTextDemo-Bold.ttf
         - asset: assets/fonts/NexaTextDemo-Bold.ttf
+          weight: 300
   

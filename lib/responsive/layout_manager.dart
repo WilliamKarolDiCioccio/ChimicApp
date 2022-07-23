@@ -1,23 +1,18 @@
 import 'package:flutter/material.dart';
 
-import 'package:chimicapp/responsive/config.dart';
+class LayoutManager {
+  final Widget phoneBody;
+  final Widget tabletBody;
 
-class LayoutManager extends StatelessWidget {
-  final Widget phoneLayout;
-  final Widget desktopLayout;
+  LayoutManager({required this.phoneBody, required this.tabletBody});
 
-  const LayoutManager(
-      {required this.phoneLayout, required this.desktopLayout, Key? key})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+  Widget bodyByContext(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        if (constraints.maxWidth < phoneWidth) {
-          return phoneLayout;
+        if (constraints.maxWidth < 600) {
+          return phoneBody;
         } else {
-          return desktopLayout;
+          return tabletBody;
         }
       },
     );

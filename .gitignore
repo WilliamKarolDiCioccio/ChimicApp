@@ -25,7 +25,6 @@ pubspec.lock
 .classpath
 .project
 .settings/
-.vscode/
 
 # Android files
 **/android/**/gradle-wrapper.jar
