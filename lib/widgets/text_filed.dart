@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:chimicapp/constants.dart';
+import 'package:chimicapp/global_variables.dart';
 
 class MyTextField extends StatefulWidget {
   final int inputLenghtLimit;
@@ -15,60 +15,69 @@ class MyTextField extends StatefulWidget {
 }
 
 class _MyTextFieldState extends State<MyTextField> {
-  final FocusNode myFocusNode = FocusNode();
   final TextEditingController myTextEditingController = TextEditingController();
+
+  String myInput = "None";
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
       child: Container(
         decoration: BoxDecoration(
           color: kSecondaryColor,
-          //
           border: Border.all(
             width: 3,
             color: kPrimaryColor,
             style: BorderStyle.solid,
           ),
-          //
           borderRadius: const BorderRadius.all(
             Radius.circular(10),
           ),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 3.5,
+              spreadRadius: 3.5,
+            )
+          ],
         ),
         child: TextField(
           controller: myTextEditingController,
-          //
+          textAlign: TextAlign.center,
+          onSubmitted: (text) {
+            myInput = myTextEditingController.text;
+            gCompound.formula = myInput;
+          },
+          onTap: () {
+            myTextEditingController.clear();
+            gCompound.reset();
+          },
           decoration: InputDecoration(
             border: InputBorder.none,
             errorBorder: InputBorder.none,
             focusedBorder: InputBorder.none,
             enabledBorder: InputBorder.none,
             disabledBorder: InputBorder.none,
-            //
-            contentPadding: const EdgeInsets.only(
-              left: 15,
-              bottom: 7,
-              top: 15,
-              right: 15,
-            ),
-            //
             hintStyle: const TextStyle(
-              fontSize: 15,
               fontWeight: FontWeight.bold,
+              fontStyle: FontStyle.italic,
             ),
             hintText: widget.myHintText,
-            //
-            suffixIcon: IconButton(
-              icon: const Icon(Icons.search_outlined),
-              color: Colors.black,
-              iconSize: 30,
-              onPressed: () {},
-            ),
           ),
-          enableSuggestions: false,
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    myTextEditingController.dispose();
+    super.dispose();
   }
 }
