@@ -4,144 +4,156 @@ import 'package:chimicapp/backends/backends.dart';
 const List<String> tokens = ['(', ')'];
 
 const Map<String, List<int>> elemsOxidationNumber = {
-  "Al": [3],
-  "Ag": [1],
-  "As": [-3, 3, 5],
-  "N": [1, 2, 3, 4, 5, -3],
-  "Ba": [2],
-  "Be": [2],
-  "B": [3],
-  "Br": [1, 3, 5, -1],
-  "Ca": [2],
-  "C": [2, 4, -4],
-  "Cl": [1, 3, 5, 7, -1],
-  "Cr": [6, 3, 2],
-  "Co": [2, 3],
-  "Fe": [2, 3],
-  "F": [-1],
-  "H": [1, -1],
-  "Pb": [4, 2],
-  "Li": [1],
-  "Mg": [2],
-  "Mn": [2, 3, 4, 6, 7],
-  "Hg": [2, 1],
-  "Ni": [2, 3],
-  "Au": [3, 1],
-  "O": [-2, -1],
-  "Pd": [2, 4],
-  "P": [3, 5, -3],
-  "Pt": [2, 4],
-  "K": [1],
-  "Cu": [2, 1],
-  "Si": [2, 4, -4],
-  "Na": [1],
-  "Sn": [2, 4],
-  "Sr": [2],
-  "Ti": [4, 3, 2],
-  "W": [6, 5, 4, 3, 2],
-  "Zn": [2],
-  "S": [-2, 6, 4],
+  "al": [3],
+  "ag": [1],
+  "as": [-3, 3, 5],
+  "n": [1, 2, 3, 4, 5, -3],
+  "ba": [2],
+  "be": [2],
+  "b": [3],
+  "br": [1, 3, 5, -1],
+  "ca": [2],
+  "c": [2, 4, -4],
+  "cl": [1, 3, 5, 7, -1],
+  "cr": [6, 3, 2],
+  "co": [2, 3],
+  "fe": [2, 3],
+  "f": [-1],
+  "h": [1, -1],
+  "pb": [4, 2],
+  "li": [1],
+  "mg": [2],
+  "mn": [2, 3, 4, 6, 7],
+  "hg": [2, 1],
+  "ni": [2, 3],
+  "au": [3, 1],
+  "o": [-2, -1],
+  "pd": [2, 4],
+  "p": [3, 5, -3],
+  "pt": [2, 4],
+  "k": [1],
+  "cu": [2, 1],
+  "si": [2, 4, -4],
+  "na": [1],
+  "sn": [2, 4],
+  "sr": [2],
+  "ti": [4, 3, 2],
+  "w": [6, 5, 4, 3, 2],
+  "zn": [2],
+  "s": [-2, 6, 4],
+};
+
+const Map<String, double> elemsElectronegativityTable = {
+  "n": 3.0,
+  "b": 2.0,
+  "br": 3.0,
+  "c": 2.6,
+  "cl": 3.2,
+  "f": 4.0,
+  "p": 2.2,
+  "s": 2.6
 };
 
 const Map<String, int> elemsCatTable = {
-  "Al": 1,
-  "Ag": 1,
-  "As": 2,
-  "N": 2,
-  "Ba": 1,
-  "Be": 1,
-  "B": 2,
-  "Br": 2,
-  "Ca": 1,
-  "C": 2,
-  "Cl": 2,
-  "Cr": 1,
-  "Co": 1,
-  "Fe": 1,
-  "F": 2,
-  "H": 4,
-  "Pb": 1,
-  "Li": 1,
-  "Mg": 1,
-  "Mn": 1,
-  "Hg": 1,
-  "Ni": 1,
-  "Au": 1,
-  "O": 3,
-  "Pd": 1,
-  "P": 2,
-  "Pt": 1,
-  "K": 1,
-  "Cu": 1,
-  "Si": 1,
-  "Na": 1,
-  "Sn": 1,
-  "Sr": 1,
-  "Ti": 1,
-  "W": 1,
-  "Zn": 1,
-  "S": 2
+  "al": 1,
+  "ag": 1,
+  "as": 2,
+  "n": 2,
+  "ba": 1,
+  "be": 1,
+  "b": 2,
+  "br": 2,
+  "ca": 1,
+  "c": 2,
+  "cl": 2,
+  "cr": 1,
+  "co": 1,
+  "fe": 1,
+  "f": 2,
+  "h": 4,
+  "pb": 1,
+  "li": 1,
+  "mg": 1,
+  "mn": 1,
+  "hg": 1,
+  "ni": 1,
+  "au": 1,
+  "o": 3,
+  "pd": 1,
+  "p": 2,
+  "pt": 1,
+  "k": 1,
+  "cu": 1,
+  "si": 1,
+  "na": 1,
+  "sn": 1,
+  "sr": 1,
+  "ti": 1,
+  "w": 1,
+  "zn": 1,
+  "s": 2
 };
 
 const Map<String, String> elemsNamesTable = {
-  "Al": "Alluminio",
-  "Ag": "Argento",
-  "As": "Arsenico",
-  "N": "Azoto",
-  "Ba": "Bario",
-  "Be": "Berillio",
-  "B": "Boro",
-  "Br": "Bromo",
-  "Ca": "Calcio",
-  "C": "Carbonio",
-  "Cl": "Cloro",
-  "Cr": "Cromo",
-  "Co": "Cobalto",
-  "Fe": "Ferro",
-  "F": "Fluoro",
-  "H": "Idrogeno",
-  "Pb": "Piombo",
-  "Li": "Litio",
-  "Mg": "Magnesio",
-  "Mn": "Manganese",
-  "Hg": "Mercurio",
-  "Ni": "Nichel",
-  "Au": "Oro",
-  "O": "Ossigeno",
-  "Pd": "Palladio",
-  "P": "Fosforo",
-  "Pt": "Platino",
-  "K": "Potassio",
-  "Cu": "Rame",
-  "Si": "Silicio",
-  "Na": "Sodio",
-  "Sn": "Stagno",
-  "Sr": "Stronzio",
-  "Ti": "Titanio",
-  "W": "Tungsteno",
-  "Zn": "Zinco",
-  "S": "Zolfo"
+  "al": "Alluminio",
+  "ag": "Argento",
+  "as": "Arsenico",
+  "n": "Azoto",
+  "ba": "Bario",
+  "be": "Berillio",
+  "b": "Boro",
+  "br": "Bromo",
+  "ca": "Calcio",
+  "c": "Carbonio",
+  "cl": "Cloro",
+  "cr": "Cromo",
+  "co": "Cobalto",
+  "fe": "Ferro",
+  "f": "Fluoro",
+  "h": "Idrogeno",
+  "pb": "Piombo",
+  "li": "Litio",
+  "mg": "Magnesio",
+  "mn": "Manganese",
+  "hg": "Mercurio",
+  "ni": "Nichel",
+  "au": "Oro",
+  "o": "Ossigeno",
+  "pd": "Palladio",
+  "p": "Fosforo",
+  "pt": "Platino",
+  "k": "Potassio",
+  "cu": "Rame",
+  "si": "Silicio",
+  "na": "Sodio",
+  "sn": "Stagno",
+  "sr": "Stronzio",
+  "ti": "Titanio",
+  "w": "Tungsteno",
+  "zn": "Zinco",
+  "s": "Zolfo"
 };
 
 const Map<String, String> elemsNamesRootTable = {
-  "N": "Nitr",
-  "B": "Boro",
-  "Br": "Brom",
-  "C": "Carb",
-  "Cl": "Clor",
-  "F": "Flor",
-  "P": "Fosf",
-  "S": "Solf"
+  "n": "Nitr",
+  "b": "Bor",
+  "br": "Brom",
+  "c": "Carb",
+  "cl": "Clor",
+  "f": "Flor",
+  "p": "Fosf",
+  "s": "Solf"
 };
 
 const Map<String, String> compundCat = {
-  "MO": "Ossido Basico",
-  "NO": "Ossido Acido",
-  "MH": "Idruro Metallico",
-  "NH": "Idruro Covalente",
-  "MN": "Sale",
-  "MHO": "Idrossido",
-  "NHO": "Ossiacido",
+  "[M, O]": "Ossido Basico",
+  "[N, O]": "Ossido Acido",
+  "[H, M]": "Idruro Metallico",
+  "[H, N]": "Idruro Covalente",
+  "[M, N]": "Sale",
+  "[N, N]": "Composto Molecolare",
+  "[H, M, O]": "Idrossido",
+  "[H, N, O]": "Ossiacido",
 };
 
 const Map<int, String> prefixesByCount = {
@@ -160,18 +172,26 @@ const Map<int, String> prefixesByCount = {
 class CCompound {
   String formula = "";
   String iupacName = "";
+  String standardName = "";
   String compoundType = "";
   String compoundCatergory = "";
 
   void reset() {
     formula = "";
     iupacName = "";
+    standardName = "";
     compoundType = "";
     compoundCatergory = "";
   }
 
-  Future<void> updateCompoundData() async {
-    if (formula.isEmpty) return;
+  Future<void> formulaToName() async {
+    if (formula.isEmpty) {
+      return;
+    } else {
+      formula = formula.toLowerCase();
+    }
+
+    // Type
 
     List<String> elemsGroupsArr = formula.split(" ");
 
@@ -187,18 +207,7 @@ class CCompound {
       return;
     }
 
-    List<int> elemsIndicesArr = [1, 1, 1];
-
-    for (var i = 0; i < elemsGroupsArr.length; ++i) {
-      String elemIndexStr = elemsGroupsArr[i].replaceAll(RegExp(r'[^0-9]'), '');
-
-      try {
-        int elemIndex = int.parse(elemIndexStr);
-        elemsIndicesArr[i] = elemIndex;
-      } on FormatException {
-        continue;
-      }
-    }
+    // Extract symbols
 
     List<int> elemsArr = [];
     List<String> elemsSymbolsArr = [];
@@ -210,39 +219,137 @@ class CCompound {
       elemsArr.add(tmp);
     }
 
-    String elemsCats = "";
+    // Categories
+
+    List<String> ordererdElemsCatsArr = [];
+    List<String> unordererdElemsCatsArr = [];
 
     for (var i = 0; i < elemsArr.length; ++i) {
       if (elemsArr[i] == 1) {
-        elemsCats += "M";
+        ordererdElemsCatsArr.add("M");
+        unordererdElemsCatsArr.add("M");
       } else if (elemsArr[i] == 2) {
-        elemsCats += "N";
+        ordererdElemsCatsArr.add("N");
+        unordererdElemsCatsArr.add("N");
       } else if (elemsArr[i] == 3) {
-        elemsCats += "O";
+        ordererdElemsCatsArr.add("O");
+        unordererdElemsCatsArr.add("O");
       } else if (elemsArr[i] == 4) {
-        elemsCats += "H";
+        ordererdElemsCatsArr.add("H");
+        unordererdElemsCatsArr.add("H");
       }
     }
 
-    compoundCatergory = compundCat[elemsCats] ?? "Sconosiuta";
+    // Sort orderedElemsCatsArr
 
-    if (compoundCatergory == "Ossido Basico" ||
-        compoundCatergory == "Ossido Acido") {
-      iupacName =
-          "${prefixesByCount[elemsIndicesArr[1]]}Ossido Di ${prefixesByCount[elemsIndicesArr[0]]}${elemsNamesTable[elemsSymbolsArr[0]]}";
-    } else if (compoundCatergory == "Idruro Metallico" ||
-        compoundCatergory == "Idruro Covalente") {
-      iupacName =
-          "${prefixesByCount[elemsIndicesArr[1]]}Idruro Di ${prefixesByCount[elemsIndicesArr[0]]}${elemsNamesTable[elemsSymbolsArr[0]]}";
-    } else if (compoundCatergory == "Sale") {
-      iupacName =
-          "${prefixesByCount[elemsIndicesArr[1]]}${elemsNamesRootTable[elemsSymbolsArr[1]]}uro Di ${prefixesByCount[elemsIndicesArr[0]]}${elemsNamesTable[elemsSymbolsArr[0]]}";
-    } else if (compoundCatergory == "Idrossido") {
-      iupacName =
-          "${prefixesByCount[elemsIndicesArr[1]]}Idrossido Di ${prefixesByCount[elemsIndicesArr[0]]}${elemsNamesTable[elemsSymbolsArr[0]]}";
-    } else if (compoundCatergory == "Ossiacido") {
-      iupacName =
-          "Acido ${prefixesByCount[elemsIndicesArr[2]]}osso ${prefixesByCount[elemsIndicesArr[0]]}${elemsNamesRootTable[elemsSymbolsArr[0]]}ico";
+    ordererdElemsCatsArr.sort((a, b) {
+      return a.compareTo(b);
+    });
+
+    compoundCatergory =
+        compundCat[ordererdElemsCatsArr.toString()] ?? "Sconosciuta";
+
+    // Extract and convert indices
+
+    List<int> elemsIndicesArr = [1, 1, 1];
+
+    for (var i = 0; i < elemsGroupsArr.length; ++i) {
+      String elemIndexStr = elemsGroupsArr[i].replaceAll(RegExp(r'[^0-9]'), '');
+
+      try {
+        elemsIndicesArr[i] = int.parse(elemIndexStr);
+      } on FormatException {
+        continue;
+      }
+    }
+
+    // Compose name (PS: I know it is messy but it works, give me time and i will optimize it)
+
+    if (compoundType == "Binario") {
+      if (compoundCatergory == "Ossido Basico" ||
+          compoundCatergory == "Ossido Acido") {
+        if (unordererdElemsCatsArr.toString() == "[M, O]" ||
+            unordererdElemsCatsArr.toString() == "[N, O]") {
+          iupacName =
+              "${prefixesByCount[elemsIndicesArr[1]]}Ossido Di ${prefixesByCount[elemsIndicesArr[0]]}${elemsNamesTable[elemsSymbolsArr[0]]}";
+        } else {
+          iupacName =
+              "${prefixesByCount[elemsIndicesArr[0]]}Ossido Di ${prefixesByCount[elemsIndicesArr[1]]}${elemsNamesTable[elemsSymbolsArr[1]]}";
+        }
+      } else if (compoundCatergory == "Idruro Metallico" ||
+          compoundCatergory == "Idruro Covalente") {
+        if (unordererdElemsCatsArr.toString() == "[M, H]" ||
+            unordererdElemsCatsArr.toString() == "[N, H]") {
+          iupacName =
+              "${prefixesByCount[elemsIndicesArr[1]]}Idruro Di ${prefixesByCount[elemsIndicesArr[0]]}${elemsNamesTable[elemsSymbolsArr[0]]}";
+        } else {
+          iupacName =
+              "${prefixesByCount[elemsIndicesArr[0]]}Idruro Di ${prefixesByCount[elemsIndicesArr[1]]}${elemsNamesTable[elemsSymbolsArr[1]]}";
+        }
+      } else if (compoundCatergory == "Sale") {
+        if (unordererdElemsCatsArr.toString() == "[M, N]") {
+          iupacName =
+              "${prefixesByCount[elemsIndicesArr[1]]}${elemsNamesRootTable[elemsSymbolsArr[1]]}uro Di ${prefixesByCount[elemsIndicesArr[0]]}${elemsNamesTable[elemsSymbolsArr[0]]}";
+        } else {
+          iupacName =
+              "${prefixesByCount[elemsIndicesArr[0]]}${elemsNamesRootTable[elemsSymbolsArr[0]]}uro Di ${prefixesByCount[elemsIndicesArr[1]]}${elemsNamesTable[elemsSymbolsArr[1]]}";
+        }
+      } else if (compoundCatergory == "Composto Molecolare") {
+        if (elemsElectronegativityTable[elemsSymbolsArr[0]]! <=
+            elemsElectronegativityTable[elemsSymbolsArr[1]]!) {
+          iupacName =
+              "${prefixesByCount[elemsIndicesArr[1]]}${elemsNamesRootTable[elemsSymbolsArr[1]]}uro Di ${prefixesByCount[elemsIndicesArr[0]]}${elemsNamesTable[elemsSymbolsArr[0]]}";
+        }
+        if (elemsElectronegativityTable[elemsSymbolsArr[0]]! >
+            elemsElectronegativityTable[elemsSymbolsArr[1]]!) {
+          iupacName =
+              "${prefixesByCount[elemsIndicesArr[0]]}${elemsNamesRootTable[elemsSymbolsArr[0]]}uro Di ${prefixesByCount[elemsIndicesArr[0]]}${elemsNamesTable[elemsSymbolsArr[1]]}";
+        }
+      }
+    } else if (compoundType == "Ternario") {
+      if (compoundCatergory == "Idrossido") {
+        if (unordererdElemsCatsArr.toString() == "[M, H, O]") {
+          iupacName =
+              "${prefixesByCount[elemsIndicesArr[1]]}Idrossido Di ${prefixesByCount[elemsIndicesArr[0]]}${elemsNamesTable[elemsSymbolsArr[0]]}";
+        } else if (unordererdElemsCatsArr.toString() == "[M, O, H]") {
+          iupacName =
+              "${prefixesByCount[elemsIndicesArr[2]]}Idrossido Di ${prefixesByCount[elemsIndicesArr[0]]}${elemsNamesTable[elemsSymbolsArr[0]]}";
+        } else if (unordererdElemsCatsArr.toString() == "[H, M, O]") {
+          iupacName =
+              "${prefixesByCount[elemsIndicesArr[0]]}Idrossido Di ${prefixesByCount[elemsIndicesArr[1]]}${elemsNamesTable[elemsSymbolsArr[1]]}";
+        } else if (unordererdElemsCatsArr.toString() == "[H, O, M]") {
+          iupacName =
+              "${prefixesByCount[elemsIndicesArr[0]]}Idrossido Di ${prefixesByCount[elemsIndicesArr[2]]}${elemsNamesTable[elemsSymbolsArr[2]]}";
+        } else if (unordererdElemsCatsArr.toString() == "[O, M, H]") {
+          iupacName =
+              "${prefixesByCount[elemsIndicesArr[2]]}Idrossido Di ${prefixesByCount[elemsIndicesArr[1]]}${elemsNamesTable[elemsSymbolsArr[1]]}";
+        } else {
+          iupacName =
+              "${prefixesByCount[elemsIndicesArr[1]]}Idrossido Di ${prefixesByCount[elemsIndicesArr[2]]}${elemsNamesTable[elemsSymbolsArr[2]]}";
+        }
+      } else if (compoundCatergory == "Ossiacido") {
+        if (unordererdElemsCatsArr.toString() == "[N, H, O]") {
+          iupacName =
+              "Acido ${prefixesByCount[elemsIndicesArr[2]]}osso ${prefixesByCount[elemsIndicesArr[0]]}${elemsNamesRootTable[elemsSymbolsArr[0]]}ico ${elemsIndicesArr[0]}";
+        } else if (unordererdElemsCatsArr.toString() == "[N, O, H]") {
+          iupacName =
+              "Acido ${prefixesByCount[elemsIndicesArr[1]]}osso ${prefixesByCount[elemsIndicesArr[1]]}${elemsNamesRootTable[elemsSymbolsArr[1]]}ico ${elemsIndicesArr[1]}";
+        } else if (unordererdElemsCatsArr.toString() == "[H, N, O]") {
+          iupacName =
+              "Acido ${prefixesByCount[elemsIndicesArr[2]]}osso ${prefixesByCount[elemsIndicesArr[1]]}${elemsNamesRootTable[elemsSymbolsArr[1]]}ico ${elemsIndicesArr[1]}";
+        } else if (unordererdElemsCatsArr.toString() == "[H, O, N]") {
+          iupacName =
+              "Acido ${prefixesByCount[elemsIndicesArr[1]]}osso ${prefixesByCount[elemsIndicesArr[2]]}${elemsNamesRootTable[elemsSymbolsArr[2]]}ico ${elemsIndicesArr[2]}";
+        } else if (unordererdElemsCatsArr.toString() == "[O, H, N]") {
+          iupacName =
+              "Acido ${prefixesByCount[elemsIndicesArr[0]]}osso ${prefixesByCount[elemsIndicesArr[2]]}${elemsNamesRootTable[elemsSymbolsArr[2]]}ico ${elemsIndicesArr[2]}";
+        } else {
+          iupacName =
+              "Acido ${prefixesByCount[elemsIndicesArr[0]]}osso ${prefixesByCount[elemsIndicesArr[1]]}${elemsNamesRootTable[elemsSymbolsArr[1]]}ico ${elemsIndicesArr[1]}";
+        }
+      } else if (compoundCatergory == "Sconosciuta") {
+        iupacName = "Sconosciuto";
+      }
     }
   }
 }

@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:chimicapp/constants.dart';
 import 'package:chimicapp/global_variables.dart';
 
+// ignore: must_be_immutable
 class MyTable extends StatefulWidget {
-  const MyTable({Key? key}) : super(key: key);
+  MyTable({Key? key}) : super(key: key);
+
+  String formulaBuffer = "";
 
   @override
   State<StatefulWidget> createState() => _MyTableState();
@@ -21,7 +24,10 @@ class _MyTableState extends State<MyTable> {
           oneSecond,
           (Timer t) => setState(
             () {
-              gCompound.updateCompoundData();
+              if (gCompound.formula != widget.formulaBuffer) {
+                gCompound.formulaToName();
+                widget.formulaBuffer = gCompound.formula;
+              }
             },
           ),
         );
@@ -86,22 +92,38 @@ class _MyTableState extends State<MyTable> {
                       ],
                     ),
                   ),
-                  Center(
-                    child: Column(
-                      children: [
-                        const Text(
-                          "CATEGORIA",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        ),
-                        Text(
-                          gCompound.compoundCatergory,
-                        ),
-                      ],
-                    ),
-                  ),
                 ],
               ),
+              TableRow(children: <Widget>[
+                Center(
+                  child: Column(
+                    children: [
+                      const Text(
+                        "NOME STANDARD",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        gCompound.standardName,
+                      ),
+                    ],
+                  ),
+                ),
+                Center(
+                  child: Column(
+                    children: [
+                      const Text(
+                        "CATEGORIA",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        gCompound.compoundCatergory,
+                      ),
+                    ],
+                  ),
+                ),
+              ])
             ],
           ),
         ),

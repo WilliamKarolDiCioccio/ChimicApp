@@ -38,9 +38,9 @@ class _MyHomeState extends State<MyHome> {
           Padding(
             padding: const EdgeInsets.only(right: 10),
             child: IconButton(
-              onPressed: () {},
+              onPressed: () => tryLaunchUrl(gitIssuesUri),
               icon: const Icon(
-                Icons.settings,
+                Icons.feedback_outlined,
               ),
             ),
           ),
@@ -55,24 +55,7 @@ class _MyHomeState extends State<MyHome> {
               myHintText:
                   "Inserisci il composto ... (Spazia gli elementi, e.g. 'H2 O')",
             ),
-            const MyTable(),
-            const Spacer(),
-            Padding(
-              padding: const EdgeInsets.all(25),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const <Widget>[
-                  Icon(Icons.warning),
-                  FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Text(
-                      "Ordine di scrittura degli elementi nella formula bruta (M, N, H, O)",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            MyTable(),
           ],
         ),
       ),
