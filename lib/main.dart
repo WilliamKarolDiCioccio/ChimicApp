@@ -13,7 +13,7 @@ void main() {
     DeviceOrientation.portraitDown,
   ]);
 
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
   WidgetsFlutterBinding.ensureInitialized();
 

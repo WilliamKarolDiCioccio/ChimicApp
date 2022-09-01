@@ -138,7 +138,7 @@ const Map<String, String> elemsNamesRootTable = {
   "n": "Nitr",
   "b": "Bor",
   "br": "Brom",
-  "c": "Carb",
+  "c": "Carbon",
   "cl": "Clor",
   "f": "Flor",
   "p": "Fosf",
@@ -154,6 +154,7 @@ const Map<String, String> compundCat = {
   "[N, N]": "Composto Molecolare",
   "[H, M, O]": "Idrossido",
   "[H, N, O]": "Ossiacido",
+  "[H, O]": "Ossido"
 };
 
 const Map<int, String> prefixesByCount = {
@@ -172,14 +173,14 @@ const Map<int, String> prefixesByCount = {
 class CCompound {
   String formula = "";
   String iupacName = "";
-  String standardName = "";
+  String standardName = "(Per implementazioni future)";
   String compoundType = "";
   String compoundCatergory = "";
 
   void reset() {
     formula = "";
     iupacName = "";
-    standardName = "";
+    standardName = "(Per implementazioni future)";
     compoundType = "";
     compoundCatergory = "";
   }
@@ -266,6 +267,9 @@ class CCompound {
     // Compose name (PS: I know it is messy but it works, give me time and i will optimize it)
 
     if (compoundType == "Binario") {
+      if (compoundCatergory == "Ossido") {
+        iupacName = "Acqua";
+      }
       if (compoundCatergory == "Ossido Basico" ||
           compoundCatergory == "Ossido Acido") {
         if (unordererdElemsCatsArr.toString() == "[M, O]" ||
@@ -330,22 +334,22 @@ class CCompound {
       } else if (compoundCatergory == "Ossiacido") {
         if (unordererdElemsCatsArr.toString() == "[N, H, O]") {
           iupacName =
-              "Acido ${prefixesByCount[elemsIndicesArr[2]]}osso ${prefixesByCount[elemsIndicesArr[0]]}${elemsNamesRootTable[elemsSymbolsArr[0]]}ico ${elemsIndicesArr[0]}";
+              "Acido ${prefixesByCount[elemsIndicesArr[2]]}osso${prefixesByCount[elemsIndicesArr[0]]}${elemsNamesRootTable[elemsSymbolsArr[0]]}ico ${elemsIndicesArr[0]}";
         } else if (unordererdElemsCatsArr.toString() == "[N, O, H]") {
           iupacName =
-              "Acido ${prefixesByCount[elemsIndicesArr[1]]}osso ${prefixesByCount[elemsIndicesArr[1]]}${elemsNamesRootTable[elemsSymbolsArr[1]]}ico ${elemsIndicesArr[1]}";
+              "Acido ${prefixesByCount[elemsIndicesArr[1]]}osso${prefixesByCount[elemsIndicesArr[0]]}${elemsNamesRootTable[elemsSymbolsArr[0]]}ico ${elemsIndicesArr[0]}";
         } else if (unordererdElemsCatsArr.toString() == "[H, N, O]") {
           iupacName =
-              "Acido ${prefixesByCount[elemsIndicesArr[2]]}osso ${prefixesByCount[elemsIndicesArr[1]]}${elemsNamesRootTable[elemsSymbolsArr[1]]}ico ${elemsIndicesArr[1]}";
+              "Acido ${prefixesByCount[elemsIndicesArr[2]]}osso${prefixesByCount[elemsIndicesArr[1]]}${elemsNamesRootTable[elemsSymbolsArr[1]]}ico ${elemsIndicesArr[1]}";
         } else if (unordererdElemsCatsArr.toString() == "[H, O, N]") {
           iupacName =
-              "Acido ${prefixesByCount[elemsIndicesArr[1]]}osso ${prefixesByCount[elemsIndicesArr[2]]}${elemsNamesRootTable[elemsSymbolsArr[2]]}ico ${elemsIndicesArr[2]}";
+              "Acido ${prefixesByCount[elemsIndicesArr[1]]}osso${prefixesByCount[elemsIndicesArr[2]]}${elemsNamesRootTable[elemsSymbolsArr[2]]}ico ${elemsIndicesArr[2]}";
         } else if (unordererdElemsCatsArr.toString() == "[O, H, N]") {
           iupacName =
-              "Acido ${prefixesByCount[elemsIndicesArr[0]]}osso ${prefixesByCount[elemsIndicesArr[2]]}${elemsNamesRootTable[elemsSymbolsArr[2]]}ico ${elemsIndicesArr[2]}";
+              "Acido ${prefixesByCount[elemsIndicesArr[0]]}osso${prefixesByCount[elemsIndicesArr[2]]}${elemsNamesRootTable[elemsSymbolsArr[2]]}ico ${elemsIndicesArr[2]}";
         } else {
           iupacName =
-              "Acido ${prefixesByCount[elemsIndicesArr[0]]}osso ${prefixesByCount[elemsIndicesArr[1]]}${elemsNamesRootTable[elemsSymbolsArr[1]]}ico ${elemsIndicesArr[1]}";
+              "Acido ${prefixesByCount[elemsIndicesArr[0]]}osso${prefixesByCount[elemsIndicesArr[1]]}${elemsNamesRootTable[elemsSymbolsArr[1]]}ico ${elemsIndicesArr[1]}";
         }
       } else if (compoundCatergory == "Sconosciuta") {
         iupacName = "Sconosciuto";
