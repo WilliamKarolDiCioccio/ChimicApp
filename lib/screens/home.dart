@@ -31,7 +31,7 @@ class _MyHomeState extends State<MyHome> {
             child: IconButton(
               onPressed: () => tryLaunchUrl(gitHubUri),
               icon: const Icon(
-                Icons.info_outlined,
+                Icons.code,
               ),
             ),
           ),
@@ -56,6 +56,25 @@ class _MyHomeState extends State<MyHome> {
                   "Inserisci il composto ... (Spazia gli elementi, e.g. 'H2 O')",
             ),
             MyTable(),
+            const Spacer(),
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.info_outlined,
+                      ),
+                      onPressed: () => tryLaunchUrl(gitReleasesUri),
+                    ),
+                  ),
+                  const Text("Informazioni di versione"),
+                ],
+              ),
+            ),
           ],
         ),
       ),
