@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-const double phoneWidth = 600;
-const double tabletWidth = 900;
+const List<Permission> permissions = [Permission.microphone, Permission.camera];
 
 const Map<int, Color> color = {
   50: Color.fromRGBO(140, 187, 241, .1),
@@ -20,3 +20,9 @@ const kPrimarySwatch = MaterialColor(0xFF8cbbf1, color);
 const kPrimaryColor = Color(0xFF8cbbf1);
 const kSecondaryColor = Color(0xFFfceecb);
 const kDarkBackground = Color(0xFF0a5688);
+
+const bool kIsDebugMode = false;
+const bool kDebugMatGridShow = false;
+
+const double phoneWidth = 600;
+const double tabletWidth = 900;

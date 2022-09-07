@@ -173,42 +173,25 @@ const Map<int, String> prefixesByCount = {
 class CCompound {
   String formula = "";
   String iupacName = "";
-  String standardName = "(Per implementazioni future)";
+  String standardName = "Implementazione futura";
   String compoundType = "";
   String compoundCatergory = "";
 
   void reset() {
     formula = "";
     iupacName = "";
-    standardName = "(Per implementazioni future)";
     compoundType = "";
     compoundCatergory = "";
   }
 
-  Future<void> formulaToName() async {
+  Future<void> update() async {
     if (formula.isEmpty) {
       return;
     } else {
       formula = formula.toLowerCase();
     }
 
-    // Type
-
     List<String> elemsGroupsArr = formula.split(" ");
-
-    if (elemsGroupsArr.length == 1) {
-      compoundType = "Non è un composto";
-      return;
-    } else if (elemsGroupsArr.length == 2) {
-      compoundType = "Binario";
-    } else if (elemsGroupsArr.length == 3) {
-      compoundType = "Ternario";
-    } else {
-      compoundType = "Sconosciuto";
-      return;
-    }
-
-    // Extract symbols
 
     List<int> elemsArr = [];
     List<String> elemsSymbolsArr = [];
@@ -217,10 +200,30 @@ class CCompound {
       String symbolStr = elemsGroupsArr[i].replaceAll(RegExp(r'[^A-Za-z]'), '');
       elemsSymbolsArr.add(symbolStr);
       int? tmp = elemsCatTable[symbolStr] ?? 0;
+      if (tmp == 0) {
+        compoundType = "Indeterminabile";
+        compoundCatergory = "Elemento sconosciuto: '$symbolStr'";
+        iupacName = "Indeterminabile";
+        return;
+      }
       elemsArr.add(tmp);
     }
 
-    // Categories
+    if (elemsGroupsArr.length == 1) {
+      compoundType = "Non è un composto";
+      return;
+    } else if (elemsGroupsArr.length == 2) {
+      compoundType = "Binario";
+    } else if (elemsGroupsArr.length == 3) {
+      compoundType = "Ternario";
+    }
+
+    if (compoundType.isEmpty) {
+      compoundType = "Sconosciuto";
+      compoundCatergory = "Indeterminabile";
+      iupacName = "Indeterminabile";
+      return;
+    }
 
     List<String> ordererdElemsCatsArr = [];
     List<String> unordererdElemsCatsArr = [];
@@ -241,16 +244,16 @@ class CCompound {
       }
     }
 
-    // Sort orderedElemsCatsArr
-
     ordererdElemsCatsArr.sort((a, b) {
       return a.compareTo(b);
     });
 
-    compoundCatergory =
-        compundCat[ordererdElemsCatsArr.toString()] ?? "Sconosciuta";
-
-    // Extract and convert indices
+    compoundCatergory = compundCat[ordererdElemsCatsArr.toString()] ?? "";
+    if (compoundCatergory.isEmpty) {
+      compoundCatergory = "Sconosciuta";
+      iupacName = "Indeterminabile";
+      return;
+    }
 
     List<int> elemsIndicesArr = [1, 1, 1];
 
@@ -264,11 +267,15 @@ class CCompound {
       }
     }
 
-    // Compose name (PS: I know it is messy but it works, give me time and i will optimize it)
-
     if (compoundType == "Binario") {
       if (compoundCatergory == "Ossido") {
-        iupacName = "Acqua";
+        if (unordererdElemsCatsArr.toString() == "[H, O]") {
+          iupacName =
+              "${prefixesByCount[elemsIndicesArr[1]]}Ossido Di ${prefixesByCount[elemsIndicesArr[0]]}${elemsNamesTable[elemsSymbolsArr[0]]}";
+        } else {
+          iupacName =
+              "${prefixesByCount[elemsIndicesArr[0]]}Ossido Di ${prefixesByCount[elemsIndicesArr[1]]}${elemsNamesTable[elemsSymbolsArr[1]]}";
+        }
       }
       if (compoundCatergory == "Ossido Basico" ||
           compoundCatergory == "Ossido Acido") {
@@ -351,9 +358,12 @@ class CCompound {
           iupacName =
               "Acido ${prefixesByCount[elemsIndicesArr[0]]}osso${prefixesByCount[elemsIndicesArr[1]]}${elemsNamesRootTable[elemsSymbolsArr[1]]}ico ${elemsIndicesArr[1]}";
         }
-      } else if (compoundCatergory == "Sconosciuta") {
-        iupacName = "Sconosciuto";
       }
+    }
+
+    if (iupacName.isEmpty) {
+      iupacName = "Sconosciuto";
+      return;
     }
   }
 }

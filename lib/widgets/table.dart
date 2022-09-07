@@ -1,13 +1,122 @@
-import 'dart:async';
+import 'package:chimicapp/backends/backends.dart';
 import 'package:flutter/material.dart';
 import 'package:chimicapp/constants.dart';
-import 'package:chimicapp/global_variables.dart';
+import 'package:provider/provider.dart';
+import 'package:chimicapp/providers/compound_provider.dart';
+
+class MyTableBox extends StatelessWidget {
+  final String title;
+  final String content;
+
+  const MyTableBox({required this.title, required this.content, Key? key})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Text(
+          title,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center,
+        ),
+        Text(
+          content,
+        ),
+      ],
+    );
+  }
+}
+
+class MyWideTableLayout extends StatelessWidget {
+  const MyWideTableLayout({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Table(
+      children: [
+        TableRow(
+          children: <Widget>[
+            Center(
+              child: MyTableBox(
+                  title: "NOME IUPAC",
+                  content: context.watch<CompoundProvider>().iupacName),
+            ),
+            Center(
+              child: MyTableBox(
+                  title: "TIPO",
+                  content: context.watch<CompoundProvider>().type),
+            ),
+          ],
+        ),
+        TableRow(children: <Widget>[
+          Center(
+            child: MyTableBox(
+                title: "NOME TRADIZIONALE",
+                content: context.watch<CompoundProvider>().standardName),
+          ),
+          Center(
+            child: MyTableBox(
+                title: "CATEGORIA",
+                content: context.watch<CompoundProvider>().category),
+          ),
+        ])
+      ],
+    );
+  }
+}
+
+class MyNarrowTableLayout extends StatelessWidget {
+  const MyNarrowTableLayout({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Table(
+      children: [
+        TableRow(
+          children: <Widget>[
+            Center(
+              child: MyTableBox(
+                  title: "NOME IUPAC",
+                  content: context.watch<CompoundProvider>().iupacName),
+            ),
+          ],
+        ),
+        TableRow(
+          children: <Widget>[
+            Center(
+              child: MyTableBox(
+                  title: "NOME TRADIZIONALE",
+                  content: context.watch<CompoundProvider>().standardName),
+            ),
+          ],
+        ),
+        TableRow(
+          children: <Widget>[
+            Center(
+              child: MyTableBox(
+                  title: "TIPO",
+                  content: context.watch<CompoundProvider>().type),
+            ),
+          ],
+        ),
+        TableRow(
+          children: <Widget>[
+            Center(
+              child: MyTableBox(
+                  title: "CATEGORIA",
+                  content: context.watch<CompoundProvider>().category),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
 
 // ignore: must_be_immutable
 class MyTable extends StatefulWidget {
-  MyTable({Key? key}) : super(key: key);
-
-  String formulaBuffer = "";
+  const MyTable({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _MyTableState();
@@ -17,22 +126,6 @@ class _MyTableState extends State<MyTable> {
   @override
   void initState() {
     super.initState();
-    setState(
-      () {
-        const oneSecond = Duration(seconds: 1);
-        Timer.periodic(
-          oneSecond,
-          (Timer t) => setState(
-            () {
-              if (gCompound.formula != widget.formulaBuffer) {
-                gCompound.formulaToName();
-                widget.formulaBuffer = gCompound.formula;
-              }
-            },
-          ),
-        );
-      },
-    );
   }
 
   @override
@@ -60,70 +153,10 @@ class _MyTableState extends State<MyTable> {
         ),
         child: Padding(
           padding: const EdgeInsets.all(10),
-          child: Table(
+          child: Column(
             children: [
-              TableRow(
-                children: <Widget>[
-                  Center(
-                    child: Column(
-                      children: [
-                        const Text(
-                          "NOME IUPAC",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        ),
-                        Text(
-                          gCompound.iupacName,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Center(
-                    child: Column(
-                      children: [
-                        const Text(
-                          "TIPO",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        ),
-                        Text(
-                          gCompound.compoundType,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              TableRow(children: <Widget>[
-                Center(
-                  child: Column(
-                    children: [
-                      const Text(
-                        "NOME STANDARD",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      ),
-                      Text(
-                        gCompound.standardName,
-                      ),
-                    ],
-                  ),
-                ),
-                Center(
-                  child: Column(
-                    children: [
-                      const Text(
-                        "CATEGORIA",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      ),
-                      Text(
-                        gCompound.compoundCatergory,
-                      ),
-                    ],
-                  ),
-                ),
-              ])
+              if (widgetResponse(context) == true) const MyNarrowTableLayout(),
+              if (widgetResponse(context) == false) const MyWideTableLayout(),
             ],
           ),
         ),

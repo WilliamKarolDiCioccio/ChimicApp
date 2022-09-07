@@ -11,12 +11,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_localizations:
-    sdk: flutter        
-  intl: ^0.17.0
   logger: ^1.1.0
   cupertino_icons: ^1.0.2
   flutter_native_splash: ^2.2.5
+  flutter_launcher_icons: ^0.10.0
+  permission_handler: ^10.0.0
+  provider: ^6.0.3
+  google_mobile_ads: ^2.0.1
 
 dev_dependencies:
   flutter_test:
@@ -28,12 +29,17 @@ flutter_native_splash:
   color: "#ffffff"
   image: assets/images/TempSplashScreen.png
 
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/iamges/ChimicApp.png"
+
 flutter:
-  generate: true 
   uses-material-design: true
   
   assets:
     - ./assets/images/TempLogo.png
+    - ./assets/images/ChimicApp.png
 
   fonts:
     - family: Nexa

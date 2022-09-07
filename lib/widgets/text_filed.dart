@@ -1,6 +1,8 @@
+import 'package:chimicapp/ccompound.dart';
 import 'package:flutter/material.dart';
 import 'package:chimicapp/constants.dart';
-import 'package:chimicapp/global_variables.dart';
+import 'package:provider/provider.dart';
+import 'package:chimicapp/providers/compound_provider.dart';
 
 class MyTextField extends StatefulWidget {
   final int inputLenghtLimit;
@@ -16,8 +18,7 @@ class MyTextField extends StatefulWidget {
 
 class _MyTextFieldState extends State<MyTextField> {
   final TextEditingController myTextEditingController = TextEditingController();
-
-  String myInput = "None";
+  final CCompound compound = CCompound();
 
   @override
   void initState() {
@@ -51,12 +52,12 @@ class _MyTextFieldState extends State<MyTextField> {
           controller: myTextEditingController,
           textAlign: TextAlign.center,
           onSubmitted: (text) {
-            myInput = myTextEditingController.text;
-            gCompound.formula = myInput;
+            compound.formula = myTextEditingController.text;
+            compound.update();
+            context.read<CompoundProvider>().changeDisplayedCompund(compound);
           },
           onTap: () {
             myTextEditingController.clear();
-            gCompound.reset();
           },
           decoration: InputDecoration(
             border: InputBorder.none,

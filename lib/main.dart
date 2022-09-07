@@ -1,23 +1,32 @@
+// ignore_for_file: import_of_legacy_library_into_null_safe
+import 'package:chimicapp/providers/compound_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:chimicapp/constants.dart';
 import 'package:chimicapp/screens/home.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
 
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+  MobileAds.instance.initialize();
 
-  WidgetsFlutterBinding.ensureInitialized();
-
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => CompoundProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 Future initialization(BuildContext? context) async {
@@ -31,21 +40,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      debugShowMaterialGrid: false,
-      //
+      debugShowCheckedModeBanner: kIsDebugMode,
+      debugShowMaterialGrid: kDebugMatGridShow,
       theme: ThemeData(
         primarySwatch: kPrimarySwatch,
         primaryColor: kPrimaryColor,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: 'Nexa',
       ),
-      //
       title: 'ChimicApp',
-      //
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      //
       home: const MyHome(),
     );
   }
