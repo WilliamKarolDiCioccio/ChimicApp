@@ -1,8 +1,9 @@
 // ignore_for_file: import_of_legacy_library_into_null_safe
+// import 'package:chimicapp/AdMob/ad_state.dart';
 import 'package:chimicapp/providers/compound_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+// import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:chimicapp/constants.dart';
@@ -17,11 +18,13 @@ Future<void> main() async {
   ]);
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
 
-  MobileAds.instance.initialize();
+  // final initState = MobileAds.instance.initialize();
+  // final adState = MyAdState(initState);
 
   runApp(
     MultiProvider(
       providers: [
+        // Provider(create: (context) => adState),
         ChangeNotifierProvider(create: (context) => CompoundProvider()),
       ],
       child: const MyApp(),
@@ -40,8 +43,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: kIsDebugMode,
-      debugShowMaterialGrid: kDebugMatGridShow,
+      debugShowCheckedModeBanner: false,
+      debugShowMaterialGrid: false,
       theme: ThemeData(
         primarySwatch: kPrimarySwatch,
         primaryColor: kPrimaryColor,

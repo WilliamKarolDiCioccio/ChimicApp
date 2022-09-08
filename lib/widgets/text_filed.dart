@@ -33,8 +33,8 @@ class _MyTextFieldState extends State<MyTextField> {
         decoration: BoxDecoration(
           color: kSecondaryColor,
           border: Border.all(
-            width: 3,
             color: kPrimaryColor,
+            width: 3,
             style: BorderStyle.solid,
           ),
           borderRadius: const BorderRadius.all(

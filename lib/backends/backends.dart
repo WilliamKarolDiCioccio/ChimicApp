@@ -16,16 +16,16 @@ var logger = Logger(
   output: null,
 );
 
-Future<void> tryLaunchUrl(Uri uri, BuildContext context) async {
+Future<bool> tryLaunchUrl(Uri uri) async {
   if (await canLaunchUrl(uri) == false) {
-    dialog(context, "URL ERROR", "Unable to open link $uri", []);
+    return false;
   } else {
     launchUrl(uri, mode: LaunchMode.inAppWebView);
+    return true;
   }
 }
 
-Future dialog(
-    BuildContext context, String title, String content, List<String> buttons) {
+Future dialog(BuildContext context, String title, String content) {
   return showDialog(
     context: context,
     builder: (context) => AlertDialog(

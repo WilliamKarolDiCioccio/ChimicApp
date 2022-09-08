@@ -1,7 +1,9 @@
+import 'package:chimicapp/pages/knowledge_pills.dart';
+import 'package:chimicapp/pages/mole_calculation.dart';
 import 'package:flutter/material.dart';
-import 'package:chimicapp/links.dart';
 import 'package:chimicapp/backends/backends.dart';
 import 'package:chimicapp/pages/compound_naming.dart';
+import 'package:unicons/unicons.dart';
 
 class MyHome extends StatelessWidget {
   const MyHome({Key? key}) : super(key: key);
@@ -24,16 +26,24 @@ class MyHome extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 10),
               child: IconButton(
-                onPressed: () => tryLaunchUrl(gitHubUri, context),
+                onPressed: () => dialog(
+                  context,
+                  "IMPOSSIBILE:",
+                  "Funzionalita temporaneamente disabilitata!",
+                ),
                 icon: const Icon(
-                  Icons.code,
+                  Icons.code_outlined,
                 ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(right: 10),
               child: IconButton(
-                onPressed: () => tryLaunchUrl(gitIssuesUri, context),
+                onPressed: () => dialog(
+                  context,
+                  "IMPOSSIBILE",
+                  "Funzionalita temporaneamente disabilitata!",
+                ),
                 icon: const Icon(
                   Icons.feedback_outlined,
                 ),
@@ -44,21 +54,24 @@ class MyHome extends StatelessWidget {
               child: IconButton(
                 onPressed: null,
                 icon: Icon(
-                  Icons.accessibility_outlined,
+                  UniconsLine.setting,
                 ),
               ),
             ),
           ],
           bottom: const TabBar(
             tabs: [
-              Tab(icon: Icon(Icons.search_outlined), text: "ANALIZZA"),
               Tab(
-                icon: Icon(Icons.grid_4x4_outlined),
-                text: "FEATURE",
+                icon: Icon(UniconsLine.microscope),
+                text: "NOME",
               ),
               Tab(
-                icon: Icon(Icons.grid_4x4_outlined),
-                text: "FEATURE",
+                icon: Icon(UniconsLine.balance_scale),
+                text: "MOLE",
+              ),
+              Tab(
+                icon: Icon(UniconsLine.comment_lines),
+                text: "PILLOLE",
               ),
             ],
           ),
@@ -66,8 +79,8 @@ class MyHome extends StatelessWidget {
         body: const TabBarView(
           children: [
             MyCompoundNamingPage(),
-            Text("Implementazione futura"),
-            Text("Implementazione futura"),
+            MyMolecularWeightPage(),
+            MyChartAndMapsPage(),
           ],
         ),
       ),

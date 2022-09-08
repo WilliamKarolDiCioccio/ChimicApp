@@ -21,8 +21,5 @@ const kPrimaryColor = Color(0xFF8cbbf1);
 const kSecondaryColor = Color(0xFFfceecb);
 const kDarkBackground = Color(0xFF0a5688);
 
-const bool kIsDebugMode = false;
-const bool kDebugMatGridShow = false;
-
 const double phoneWidth = 600;
 const double tabletWidth = 900;

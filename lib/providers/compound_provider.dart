@@ -1,7 +1,7 @@
 import 'package:chimicapp/ccompound.dart';
 import 'package:flutter/material.dart';
 
-class CompoundProvider with ChangeNotifier {
+class CompoundProvider extends ChangeNotifier {
   final CCompound compoundBuffer = CCompound();
 
   String get iupacName => compoundBuffer.iupacName;

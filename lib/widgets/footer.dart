@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:chimicapp/backends/backends.dart';
 import 'package:chimicapp/links.dart';
+import 'package:unicons/unicons.dart';
 
 class MyFooter extends StatelessWidget {
   const MyFooter({Key? key}) : super(key: key);
@@ -18,9 +19,9 @@ class MyFooter extends StatelessWidget {
               children: <Widget>[
                 IconButton(
                   icon: const Icon(
-                    Icons.info_outlined,
+                    UniconsLine.info,
                   ),
-                  onPressed: () => tryLaunchUrl(gitReleasesUri, context),
+                  onPressed: () => tryLaunchUrl(gitReleasesUri),
                 ),
                 const Text(
                   "Informazioni di versione",
@@ -28,6 +29,18 @@ class MyFooter extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const <Widget>[
+                Text("Copyright ©2022, All Rights Reserved"),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const <Widget>[
+                Text("Powered By SNDevs"),
               ],
             ),
           ],

@@ -1,11 +1,21 @@
-import 'package:permission_handler/permission_handler.dart';
+// ignore_for_file: avoid_print
+import 'package:flutter/foundation.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class MyAdState {
-  final Future<PermissionStatus> initialization;
+  final Future<InitializationStatus> initialization;
 
-  const MyAdState({required this.initialization});
+  MyAdState(this.initialization);
 
-  static const String bannerAdUnitId = "ca-app-pub-3940256099942544/6300978111";
+  final BannerAdListener listener = BannerAdListener(
+    onAdLoaded: (ad) => print("Successfully loaded Ad: ${ad.adUnitId}"),
+    onAdFailedToLoad: (ad, error) =>
+        print("Failed to load Ad: ${ad.adUnitId}, $error"),
+  );
+
+  final String bannerAdUnitId = kDebugMode == true
+      ? "ca-app-pub-3940256099942544/6300978111"
+      : "ca-app-pub-7145072833582688/7192822362";
 }
 
 // ca-app-pub-7145072833582688/7192822362

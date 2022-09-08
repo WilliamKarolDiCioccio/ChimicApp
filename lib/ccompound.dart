@@ -1,7 +1,7 @@
 // ignore: unused_import
 import 'package:chimicapp/backends/backends.dart';
 
-const List<String> tokens = ['(', ')'];
+const List<String> tokens = ['(', ')', ' '];
 
 const Map<String, List<int>> elemsOxidationNumber = {
   "al": [3],
@@ -269,7 +269,8 @@ class CCompound {
 
     if (compoundType == "Binario") {
       if (compoundCatergory == "Ossido") {
-        if (unordererdElemsCatsArr.toString() == "[H, O]") {
+        if (unordererdElemsCatsArr.toString() == "[H, O]" &&
+            elemsIndicesArr[0] == 1) {
           iupacName =
               "${prefixesByCount[elemsIndicesArr[1]]}Ossido Di ${prefixesByCount[elemsIndicesArr[0]]}${elemsNamesTable[elemsSymbolsArr[0]]}";
         } else {
