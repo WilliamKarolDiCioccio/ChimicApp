@@ -1,8 +1,8 @@
-import 'package:chimicapp/backends/backends.dart';
+import 'package:chimicapp/common.dart';
+import 'package:chimicapp/widgets/container.dart';
 import 'package:flutter/material.dart';
-import 'package:chimicapp/constants.dart';
 import 'package:provider/provider.dart';
-import 'package:chimicapp/providers/compound_provider.dart';
+import 'package:chimicapp/providers/compound.dart';
 
 class MyTableBox extends StatelessWidget {
   final String title;
@@ -40,12 +40,11 @@ class MyWideTableLayout extends StatelessWidget {
             Center(
               child: MyTableBox(
                   title: "NOME IUPAC",
-                  content: context.watch<CompoundProvider>().iupacName),
+                  content: context.watch<CompoundModel>().iupacName),
             ),
             Center(
               child: MyTableBox(
-                  title: "TIPO",
-                  content: context.watch<CompoundProvider>().type),
+                  title: "TIPO", content: context.watch<CompoundModel>().type),
             ),
           ],
         ),
@@ -53,12 +52,12 @@ class MyWideTableLayout extends StatelessWidget {
           Center(
             child: MyTableBox(
                 title: "NOME TRADIZIONALE",
-                content: context.watch<CompoundProvider>().standardName),
+                content: context.watch<CompoundModel>().standardName),
           ),
           Center(
             child: MyTableBox(
                 title: "CATEGORIA",
-                content: context.watch<CompoundProvider>().category),
+                content: context.watch<CompoundModel>().category),
           ),
         ])
       ],
@@ -78,7 +77,7 @@ class MyNarrowTableLayout extends StatelessWidget {
             Center(
               child: MyTableBox(
                   title: "NOME IUPAC",
-                  content: context.watch<CompoundProvider>().iupacName),
+                  content: context.watch<CompoundModel>().iupacName),
             ),
           ],
         ),
@@ -87,7 +86,7 @@ class MyNarrowTableLayout extends StatelessWidget {
             Center(
               child: MyTableBox(
                   title: "NOME TRADIZIONALE",
-                  content: context.watch<CompoundProvider>().standardName),
+                  content: context.watch<CompoundModel>().standardName),
             ),
           ],
         ),
@@ -95,8 +94,7 @@ class MyNarrowTableLayout extends StatelessWidget {
           children: <Widget>[
             Center(
               child: MyTableBox(
-                  title: "TIPO",
-                  content: context.watch<CompoundProvider>().type),
+                  title: "TIPO", content: context.watch<CompoundModel>().type),
             ),
           ],
         ),
@@ -105,7 +103,7 @@ class MyNarrowTableLayout extends StatelessWidget {
             Center(
               child: MyTableBox(
                   title: "CATEGORIA",
-                  content: context.watch<CompoundProvider>().category),
+                  content: context.watch<CompoundModel>().category),
             ),
           ],
         ),
@@ -132,26 +130,8 @@ class _MyTableState extends State<MyTable> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
-      child: Container(
-        decoration: BoxDecoration(
-          color: kSecondaryColor,
-          border: Border.all(
-            width: 3,
-            color: kPrimaryColor,
-            style: BorderStyle.solid,
-          ),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 3.5,
-              spreadRadius: 3.5,
-            )
-          ],
-          borderRadius: const BorderRadius.all(
-            Radius.circular(10),
-          ),
-        ),
-        child: Padding(
+      child: MyContainer(
+        myWidget: Padding(
           padding: const EdgeInsets.all(10),
           child: Column(
             children: [

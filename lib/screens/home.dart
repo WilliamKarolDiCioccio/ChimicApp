@@ -1,20 +1,43 @@
 import 'package:chimicapp/pages/knowledge_pills.dart';
 import 'package:chimicapp/pages/mole_calculation.dart';
 import 'package:flutter/material.dart';
-import 'package:chimicapp/backends/backends.dart';
-import 'package:chimicapp/pages/compound_naming.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:unicons/unicons.dart';
+import 'package:chimicapp/common.dart';
+import 'package:chimicapp/pages/compound_naming.dart';
 
-class MyHome extends StatelessWidget {
+class MyHome extends StatefulWidget {
   const MyHome({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _MyHomeState();
+}
+
+class _MyHomeState extends State<MyHome> {
+  void _initialization() async {
+    await Future.delayed(
+      const Duration(seconds: 1),
+    );
+    FlutterNativeSplash.remove();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _initialization();
+  }
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        backgroundColor: Colors.white,
         appBar: AppBar(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(25),
+            ),
+          ),
           title: const Text(
             'CHIMICAPP',
             style: TextStyle(
@@ -28,7 +51,7 @@ class MyHome extends StatelessWidget {
               child: IconButton(
                 onPressed: () => dialog(
                   context,
-                  "IMPOSSIBILE:",
+                  "IMPOSSIBILE CONTINUARE:",
                   "Funzionalita temporaneamente disabilitata!",
                 ),
                 icon: const Icon(
@@ -41,7 +64,7 @@ class MyHome extends StatelessWidget {
               child: IconButton(
                 onPressed: () => dialog(
                   context,
-                  "IMPOSSIBILE",
+                  "IMPOSSIBILE CONTINUARE:",
                   "Funzionalita temporaneamente disabilitata!",
                 ),
                 icon: const Icon(
@@ -49,17 +72,18 @@ class MyHome extends StatelessWidget {
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(right: 10),
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
               child: IconButton(
-                onPressed: null,
-                icon: Icon(
+                onPressed: () => Navigator.pushNamed(context, '/settings'),
+                icon: const Icon(
                   UniconsLine.setting,
                 ),
               ),
             ),
           ],
           bottom: const TabBar(
+            indicatorColor: Colors.transparent,
             tabs: [
               Tab(
                 icon: Icon(UniconsLine.microscope),
@@ -70,7 +94,7 @@ class MyHome extends StatelessWidget {
                 text: "MOLE",
               ),
               Tab(
-                icon: Icon(UniconsLine.comment_lines),
+                icon: Icon(UniconsLine.brain),
                 text: "PILLOLE",
               ),
             ],
@@ -80,10 +104,15 @@ class MyHome extends StatelessWidget {
           children: [
             MyCompoundNamingPage(),
             MyMolecularWeightPage(),
-            MyChartAndMapsPage(),
+            MyKnowledgePillsPage(),
           ],
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

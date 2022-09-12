@@ -48,9 +48,9 @@ bool widgetResponse(BuildContext context) {
 }
 
 Future<bool> askPermissions() async {
-  for (var i = 0; i < permissions.length; ++i) {
-    permissions[i].request();
-    if (await permissions[i].isGranted == false) return false;
+  for (var i = 0; i < Constants.permissions.length; ++i) {
+    Constants.permissions[i].request();
+    if (await Constants.permissions[i].isGranted == false) return false;
   }
   return true;
 }

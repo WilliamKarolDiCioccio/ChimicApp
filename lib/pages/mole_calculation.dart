@@ -16,9 +16,8 @@ class _MyMolecularWeightPageState extends State<MyMolecularWeightPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: const <Widget>[],
+    return Scaffold(
+      body: ListView(),
     );
   }
 
