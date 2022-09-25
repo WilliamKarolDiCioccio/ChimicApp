@@ -39,27 +39,50 @@ class MyWideTableLayout extends StatelessWidget {
           children: <Widget>[
             Center(
               child: MyTableBox(
-                  title: "NOME IUPAC",
-                  content: context.watch<CompoundModel>().iupacName),
+                title: "NOME IUPAC",
+                content: context.watch<CompoundModel>().iupacName,
+              ),
             ),
             Center(
               child: MyTableBox(
-                  title: "TIPO", content: context.watch<CompoundModel>().type),
+                title: "TIPO",
+                content: context.watch<CompoundModel>().type,
+              ),
             ),
           ],
         ),
-        TableRow(children: <Widget>[
-          Center(
-            child: MyTableBox(
+        TableRow(
+          children: <Widget>[
+            Center(
+              child: MyTableBox(
                 title: "NOME TRADIZIONALE",
-                content: context.watch<CompoundModel>().standardName),
-          ),
-          Center(
-            child: MyTableBox(
+                content: context.watch<CompoundModel>().standardName,
+              ),
+            ),
+            Center(
+              child: MyTableBox(
                 title: "CATEGORIA",
-                content: context.watch<CompoundModel>().category),
-          ),
-        ])
+                content: context.watch<CompoundModel>().category,
+              ),
+            ),
+          ],
+        ),
+        const TableRow(
+          children: <Widget>[
+            Center(
+              child: MyTableBox(
+                title: "REAZIONE",
+                content: "",
+              ),
+            ),
+            Center(
+              child: MyTableBox(
+                title: "DESCRIZIONE",
+                content: "",
+              ),
+            ),
+          ],
+        )
       ],
     );
   }
@@ -76,8 +99,9 @@ class MyNarrowTableLayout extends StatelessWidget {
           children: <Widget>[
             Center(
               child: MyTableBox(
-                  title: "NOME IUPAC",
-                  content: context.watch<CompoundModel>().iupacName),
+                title: "NOME IUPAC",
+                content: context.watch<CompoundModel>().iupacName,
+              ),
             ),
           ],
         ),
@@ -85,8 +109,9 @@ class MyNarrowTableLayout extends StatelessWidget {
           children: <Widget>[
             Center(
               child: MyTableBox(
-                  title: "NOME TRADIZIONALE",
-                  content: context.watch<CompoundModel>().standardName),
+                title: "NOME TRADIZIONALE",
+                content: context.watch<CompoundModel>().standardName,
+              ),
             ),
           ],
         ),
@@ -94,7 +119,9 @@ class MyNarrowTableLayout extends StatelessWidget {
           children: <Widget>[
             Center(
               child: MyTableBox(
-                  title: "TIPO", content: context.watch<CompoundModel>().type),
+                title: "TIPO",
+                content: context.watch<CompoundModel>().type,
+              ),
             ),
           ],
         ),
@@ -102,8 +129,29 @@ class MyNarrowTableLayout extends StatelessWidget {
           children: <Widget>[
             Center(
               child: MyTableBox(
-                  title: "CATEGORIA",
-                  content: context.watch<CompoundModel>().category),
+                title: "CATEGORIA",
+                content: context.watch<CompoundModel>().category,
+              ),
+            ),
+          ],
+        ),
+        const TableRow(
+          children: <Widget>[
+            Center(
+              child: MyTableBox(
+                title: "REAZIONE",
+                content: "",
+              ),
+            ),
+          ],
+        ),
+        const TableRow(
+          children: <Widget>[
+            Center(
+              child: MyTableBox(
+                title: "DESCRIZIONE",
+                content: "",
+              ),
             ),
           ],
         ),

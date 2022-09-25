@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Compound {
   String formula = "";
   String iupacName = "";
-  String standardName = "Implementazione futura";
+  String standardName = "";
   String type = "";
   String category = "";
 }

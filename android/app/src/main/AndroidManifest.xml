@@ -6,7 +6,7 @@
    <application
         android:label="ChimicApp"
         android:name="${applicationName}"
-        android:icon="@mipmap/chimicapp">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:exported="true"

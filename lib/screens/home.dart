@@ -1,10 +1,10 @@
-import 'package:chimicapp/pages/knowledge_pills.dart';
-import 'package:chimicapp/pages/mole_calculation.dart';
+import 'package:chimicapp/tabs/knowledge_pills.dart';
+import 'package:chimicapp/tabs/misc_calculations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:unicons/unicons.dart';
 import 'package:chimicapp/common.dart';
-import 'package:chimicapp/pages/compound_naming.dart';
+import 'package:chimicapp/tabs/compound_naming.dart';
 
 class MyHome extends StatefulWidget {
   const MyHome({Key? key}) : super(key: key);

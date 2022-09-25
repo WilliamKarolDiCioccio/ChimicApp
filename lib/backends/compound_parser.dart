@@ -1,197 +1,60 @@
+// This file defines the compound parser class and it's interface
+
 import 'package:chimicapp/providers/compound.dart';
-
-const Map<String, List<int>> elemsOxidationNumber = {
-  "al": [3],
-  "ag": [1],
-  "as": [-3, 3, 5],
-  "n": [1, 2, 3, 4, 5, -3],
-  "ba": [2],
-  "be": [2],
-  "b": [3],
-  "br": [1, 3, 5, -1],
-  "ca": [2],
-  "c": [2, 4, -4],
-  "cl": [1, 3, 5, 7, -1],
-  "cr": [6, 3, 2],
-  "co": [2, 3],
-  "fe": [2, 3],
-  "f": [-1],
-  "h": [1, -1],
-  "pb": [4, 2],
-  "li": [1],
-  "mg": [2],
-  "mn": [2, 3, 4, 6, 7],
-  "hg": [2, 1],
-  "ni": [2, 3],
-  "au": [3, 1],
-  "o": [-2, -1],
-  "pd": [2, 4],
-  "p": [3, 5, -3],
-  "pt": [2, 4],
-  "k": [1],
-  "cu": [2, 1],
-  "si": [2, 4, -4],
-  "na": [1],
-  "sn": [2, 4],
-  "sr": [2],
-  "ti": [4, 3, 2],
-  "w": [6, 5, 4, 3, 2],
-  "zn": [2],
-  "s": [-2, 6, 4],
-};
-
-const Map<String, double> elemsElectronegativityTable = {
-  "n": 3.0,
-  "b": 2.0,
-  "br": 3.0,
-  "c": 2.6,
-  "cl": 3.2,
-  "f": 4.0,
-  "p": 2.2,
-  "s": 2.6
-};
-
-const Map<String, int> elemsCatTable = {
-  "al": 1,
-  "ag": 1,
-  "as": 2,
-  "n": 2,
-  "ba": 1,
-  "be": 1,
-  "b": 2,
-  "br": 2,
-  "ca": 1,
-  "c": 2,
-  "cl": 2,
-  "cr": 1,
-  "co": 1,
-  "fe": 1,
-  "f": 2,
-  "h": 4,
-  "pb": 1,
-  "li": 1,
-  "mg": 1,
-  "mn": 1,
-  "hg": 1,
-  "ni": 1,
-  "au": 1,
-  "o": 3,
-  "pd": 1,
-  "p": 2,
-  "pt": 1,
-  "k": 1,
-  "cu": 1,
-  "si": 1,
-  "na": 1,
-  "sn": 1,
-  "sr": 1,
-  "ti": 1,
-  "w": 1,
-  "zn": 1,
-  "s": 2
-};
-
-const Map<String, String> elemsNamesTable = {
-  "al": "Alluminio",
-  "ag": "Argento",
-  "as": "Arsenico",
-  "n": "Azoto",
-  "ba": "Bario",
-  "be": "Berillio",
-  "b": "Boro",
-  "br": "Bromo",
-  "ca": "Calcio",
-  "c": "Carbonio",
-  "cl": "Cloro",
-  "cr": "Cromo",
-  "co": "Cobalto",
-  "fe": "Ferro",
-  "f": "Fluoro",
-  "h": "Idrogeno",
-  "pb": "Piombo",
-  "li": "Litio",
-  "mg": "Magnesio",
-  "mn": "Manganese",
-  "hg": "Mercurio",
-  "ni": "Nichel",
-  "au": "Oro",
-  "o": "Ossigeno",
-  "pd": "Palladio",
-  "p": "Fosforo",
-  "pt": "Platino",
-  "k": "Potassio",
-  "cu": "Rame",
-  "si": "Silicio",
-  "na": "Sodio",
-  "sn": "Stagno",
-  "sr": "Stronzio",
-  "ti": "Titanio",
-  "w": "Tungsteno",
-  "zn": "Zinco",
-  "s": "Zolfo"
-};
-
-const Map<String, String> elemsNamesRootTable = {
-  "n": "Nitr",
-  "b": "Bor",
-  "br": "Brom",
-  "c": "Carbon",
-  "cl": "Clor",
-  "f": "Fluor",
-  "p": "Fosf",
-  "s": "Solf"
-};
-
-const Map<String, String> compundCat = {
-  "[M, O]": "Ossido Basico",
-  "[N, O]": "Ossido Acido",
-  "[H, M]": "Idruro Metallico",
-  "[H, N]": "Idruro Covalente",
-  "[M, N]": "Sale",
-  "[N, N]": "Composto Molecolare",
-  "[H, M, O]": "Idrossido",
-  "[H, N, O]": "Ossiacido",
-  "[H, O]": "Ossido"
-};
-
-const Map<int, String> prefixesByCount = {
-  1: "",
-  2: "Di",
-  3: "Tri",
-  4: "Tetra",
-  5: "Penta",
-  6: "Esa",
-  7: "Epta",
-  8: "Octa",
-  9: "Enna",
-  10: "Deca"
-};
-
-const List<String> tokens = ['(', ')', ' '];
+import 'package:chimicapp/backends/tables.dart';
 
 class CompoundParser {
+  // Beginning of interface
+
+  // Resets all of the compound's properties
   void reset(Compound compound) {
     compound.formula = "";
     compound.iupacName = "";
+    compound.standardName = "";
     compound.type = "";
     compound.category = "";
   }
 
+  // Copies the properties from the first compound in the second
   void copy(Compound compound1, Compound compound2) {
     compound2.formula = compound1.formula;
     compound2.iupacName = compound1.iupacName;
+    compound2.standardName = compound1.standardName;
     compound2.type = compound1.type;
     compound2.category = compound1.category;
   }
 
-  Future<void> update(Compound compound) async {
+  // Calls the '_update(compound)' private method
+  Future<void> update(Compound compound) => _update(compound);
+
+  // Ending of interface
+
+  // Private methods and members
+
+  String _compoundType(int length) {
+    if (length == 3) {
+      return "Ternario";
+    } else if (length == 2) {
+      return "Binario";
+    } else if (length == 1) {
+      return "Non è un composto";
+    }
+    return "";
+  }
+
+  // Updates all the properties of the given compound
+  Future<void> _update(Compound compound) async {
     if (compound.formula.isEmpty) {
-      reset(compound);
-      return;
+      () {
+        return reset(compound);
+      };
     }
 
+    // Temporary compound buffer to avoid lazy outputs
     Compound tempCompound = Compound();
     copy(compound, tempCompound);
+
+    _end() => copy(tempCompound, compound);
 
     String formulaStr = tempCompound.formula.toLowerCase();
 
@@ -208,26 +71,18 @@ class CompoundParser {
         tempCompound.type = "Indeterminabile";
         tempCompound.category = "Elemento sconosciuto: '$symbolStr'";
         tempCompound.iupacName = "Indeterminabile";
-        return copy(tempCompound, compound);
+        return _end();
       }
       elemsArr.add(tmp);
     }
 
-    if (elemsGroupsArr.length == 1) {
-      tempCompound.type = "Non è un composto";
-    } else if (elemsGroupsArr.length == 2) {
-      tempCompound.type = "Binario";
-    } else if (elemsGroupsArr.length == 3) {
-      tempCompound.type = "Ternario";
-    } else {
+    if (_compoundType(elemsGroupsArr.length).isEmpty) {
       tempCompound.type = "Sconosciuto";
-    }
-
-    if (tempCompound.type == "Sconosciuto") {
       tempCompound.category = "Indeterminabile";
       tempCompound.iupacName = "Indeterminabile";
-      return copy(tempCompound, compound);
+      return _end();
     }
+    tempCompound.type = _compoundType(elemsGroupsArr.length);
 
     List<String> ordererdElemsCatsArr = [];
     List<String> unordererdElemsCatsArr = [];
@@ -256,7 +111,7 @@ class CompoundParser {
     if (tempCompound.category.isEmpty) {
       tempCompound.category = "Sconosciuta";
       tempCompound.iupacName = "Indeterminabile";
-      return copy(tempCompound, compound);
+      return _end();
     }
 
     List<int> elemsIndicesArr = [1, 1, 1];
@@ -272,111 +127,147 @@ class CompoundParser {
     }
 
     if (tempCompound.type == "Binario") {
-      if (tempCompound.category == "Ossido") {
-        if (unordererdElemsCatsArr.toString() == "[H, O]" &&
-            elemsIndicesArr[0] == 1) {
-          tempCompound.iupacName =
-              "${prefixesByCount[elemsIndicesArr[1]]}Ossido Di ${prefixesByCount[elemsIndicesArr[0]]}${elemsNamesTable[elemsSymbolsArr[0]]}";
-        } else {
-          tempCompound.iupacName =
-              "${prefixesByCount[elemsIndicesArr[0]]}Ossido Di ${prefixesByCount[elemsIndicesArr[1]]}${elemsNamesTable[elemsSymbolsArr[1]]}";
-        }
-      }
+      //
       if (tempCompound.category == "Ossido Basico" ||
-          tempCompound.category == "Ossido Acido") {
+          tempCompound.category == "Ossido Acido" ||
+          tempCompound.category == "Ossido") {
         if (unordererdElemsCatsArr.toString() == "[M, O]" ||
             unordererdElemsCatsArr.toString() == "[N, O]") {
+          // IUPAC name
           tempCompound.iupacName =
               "${prefixesByCount[elemsIndicesArr[1]]}Ossido Di ${prefixesByCount[elemsIndicesArr[0]]}${elemsNamesTable[elemsSymbolsArr[0]]}";
         } else {
+          // IUPAC name
           tempCompound.iupacName =
               "${prefixesByCount[elemsIndicesArr[0]]}Ossido Di ${prefixesByCount[elemsIndicesArr[1]]}${elemsNamesTable[elemsSymbolsArr[1]]}";
         }
-      } else if (tempCompound.category == "Idruro Metallico") {
+        //
+        //
+      } else if (tempCompound.category == "Idruro") {
         if (unordererdElemsCatsArr.toString() == "[M, H]") {
+          // IUPAC name
           tempCompound.iupacName =
               "${prefixesByCount[elemsIndicesArr[1]]}Idruro Di ${prefixesByCount[elemsIndicesArr[0]]}${elemsNamesTable[elemsSymbolsArr[0]]}";
         } else {
+          // IUPAC name
           tempCompound.iupacName =
               "${prefixesByCount[elemsIndicesArr[0]]}Idruro Di ${prefixesByCount[elemsIndicesArr[1]]}${elemsNamesTable[elemsSymbolsArr[1]]}";
         }
-      } else if (tempCompound.category == "Idruro Covalente") {
+        //
+        //
+      } else if (tempCompound.category == "Idracido") {
         if (unordererdElemsCatsArr.toString() == "[N, H]") {
+          // IUPAC name
           tempCompound.iupacName =
-              "acido ${elemsNamesRootTable[elemsSymbolsArr[0]]}idrico";
+              "${elemsNamesRootTable[elemsSymbolsArr[0]]}uro di ${prefixesByCount[elemsIndicesArr[1]]}Idrogeno";
+          // Standard name
+          tempCompound.standardName =
+              "Acido ${elemsNamesRootTable[elemsSymbolsArr[0]]}idrico";
         } else {
+          // IUPAC name
           tempCompound.iupacName =
-              "acido ${elemsNamesRootTable[elemsSymbolsArr[1]]}idrico";
+              "${elemsNamesRootTable[elemsSymbolsArr[1]]}uro di ${prefixesByCount[elemsIndicesArr[0]]}Idrogeno";
+          // Standard name
+          tempCompound.standardName =
+              "Acido ${elemsNamesRootTable[elemsSymbolsArr[1]]}idrico";
         }
+        //
+        //
       } else if (tempCompound.category == "Sale") {
         if (unordererdElemsCatsArr.toString() == "[M, N]") {
+          // IUPAC name
           tempCompound.iupacName =
               "${prefixesByCount[elemsIndicesArr[1]]}${elemsNamesRootTable[elemsSymbolsArr[1]]}uro Di ${prefixesByCount[elemsIndicesArr[0]]}${elemsNamesTable[elemsSymbolsArr[0]]}";
         } else {
+          // IUPAC name
           tempCompound.iupacName =
               "${prefixesByCount[elemsIndicesArr[0]]}${elemsNamesRootTable[elemsSymbolsArr[0]]}uro Di ${prefixesByCount[elemsIndicesArr[1]]}${elemsNamesTable[elemsSymbolsArr[1]]}";
         }
+        //
+        //
       } else if (tempCompound.category == "Composto Molecolare") {
         if (elemsElectronegativityTable[elemsSymbolsArr[0]]! <=
             elemsElectronegativityTable[elemsSymbolsArr[1]]!) {
+          // IUPAC name
           tempCompound.iupacName =
               "${prefixesByCount[elemsIndicesArr[1]]}${elemsNamesRootTable[elemsSymbolsArr[1]]}uro Di ${prefixesByCount[elemsIndicesArr[0]]}${elemsNamesTable[elemsSymbolsArr[0]]}";
         }
         if (elemsElectronegativityTable[elemsSymbolsArr[0]]! >
             elemsElectronegativityTable[elemsSymbolsArr[1]]!) {
+          // IUPAC name
           tempCompound.iupacName =
               "${prefixesByCount[elemsIndicesArr[0]]}${elemsNamesRootTable[elemsSymbolsArr[0]]}uro Di ${prefixesByCount[elemsIndicesArr[0]]}${elemsNamesTable[elemsSymbolsArr[1]]}";
         }
+        //
+        //
       }
     } else if (tempCompound.type == "Ternario") {
       if (tempCompound.category == "Idrossido") {
         if (unordererdElemsCatsArr.toString() == "[M, H, O]") {
+          // IUPAC name
           tempCompound.iupacName =
               "${prefixesByCount[elemsIndicesArr[1]]}Idrossido Di ${prefixesByCount[elemsIndicesArr[0]]}${elemsNamesTable[elemsSymbolsArr[0]]}";
         } else if (unordererdElemsCatsArr.toString() == "[M, O, H]") {
+          // IUPAC name
           tempCompound.iupacName =
               "${prefixesByCount[elemsIndicesArr[2]]}Idrossido Di ${prefixesByCount[elemsIndicesArr[0]]}${elemsNamesTable[elemsSymbolsArr[0]]}";
         } else if (unordererdElemsCatsArr.toString() == "[H, M, O]") {
+          // IUPAC name
           tempCompound.iupacName =
               "${prefixesByCount[elemsIndicesArr[0]]}Idrossido Di ${prefixesByCount[elemsIndicesArr[1]]}${elemsNamesTable[elemsSymbolsArr[1]]}";
         } else if (unordererdElemsCatsArr.toString() == "[H, O, M]") {
+          // IUPAC name
           tempCompound.iupacName =
               "${prefixesByCount[elemsIndicesArr[0]]}Idrossido Di ${prefixesByCount[elemsIndicesArr[2]]}${elemsNamesTable[elemsSymbolsArr[2]]}";
         } else if (unordererdElemsCatsArr.toString() == "[O, M, H]") {
+          // IUPAC name
           tempCompound.iupacName =
               "${prefixesByCount[elemsIndicesArr[2]]}Idrossido Di ${prefixesByCount[elemsIndicesArr[1]]}${elemsNamesTable[elemsSymbolsArr[1]]}";
         } else {
+          // IUPAC name
           tempCompound.iupacName =
               "${prefixesByCount[elemsIndicesArr[1]]}Idrossido Di ${prefixesByCount[elemsIndicesArr[2]]}${elemsNamesTable[elemsSymbolsArr[2]]}";
         }
+        //
+        //
       } else if (tempCompound.category == "Ossiacido") {
         if (unordererdElemsCatsArr.toString() == "[N, H, O]") {
+          // IUPAC name
           tempCompound.iupacName =
               "Acido ${prefixesByCount[elemsIndicesArr[2]]}osso${prefixesByCount[elemsIndicesArr[0]]}${elemsNamesRootTable[elemsSymbolsArr[0]]}ico ${elemsIndicesArr[0]}";
         } else if (unordererdElemsCatsArr.toString() == "[N, O, H]") {
+          // IUPAC name
           tempCompound.iupacName =
               "Acido ${prefixesByCount[elemsIndicesArr[1]]}osso${prefixesByCount[elemsIndicesArr[0]]}${elemsNamesRootTable[elemsSymbolsArr[0]]}ico ${elemsIndicesArr[0]}";
         } else if (unordererdElemsCatsArr.toString() == "[H, N, O]") {
+          // IUPAC name
           tempCompound.iupacName =
               "Acido ${prefixesByCount[elemsIndicesArr[2]]}osso${prefixesByCount[elemsIndicesArr[1]]}${elemsNamesRootTable[elemsSymbolsArr[1]]}ico ${elemsIndicesArr[1]}";
         } else if (unordererdElemsCatsArr.toString() == "[H, O, N]") {
+          // IUPAC name
           tempCompound.iupacName =
               "Acido ${prefixesByCount[elemsIndicesArr[1]]}osso${prefixesByCount[elemsIndicesArr[2]]}${elemsNamesRootTable[elemsSymbolsArr[2]]}ico ${elemsIndicesArr[2]}";
         } else if (unordererdElemsCatsArr.toString() == "[O, H, N]") {
+          // IUPAC name
           tempCompound.iupacName =
               "Acido ${prefixesByCount[elemsIndicesArr[0]]}osso${prefixesByCount[elemsIndicesArr[2]]}${elemsNamesRootTable[elemsSymbolsArr[2]]}ico ${elemsIndicesArr[2]}";
         } else {
+          // IUPAC name
           tempCompound.iupacName =
               "Acido ${prefixesByCount[elemsIndicesArr[0]]}osso${prefixesByCount[elemsIndicesArr[1]]}${elemsNamesRootTable[elemsSymbolsArr[1]]}ico ${elemsIndicesArr[1]}";
         }
+        //
+        //
       }
     }
 
+    if (tempCompound.standardName.isEmpty) {
+      tempCompound.standardName = "Sconosciuto";
+    }
     if (tempCompound.iupacName.isEmpty) {
       tempCompound.iupacName = "Sconosciuto";
-      return copy(tempCompound, compound);
     }
 
-    copy(tempCompound, compound);
+    return _end();
   }
 }

@@ -1,0 +1,186 @@
+// This file contains hash tables and lists used by the compound parser
+
+// Maps common standard names to their respective "popular" names
+const knownCompoundsAliases = {
+  "": "",
+};
+
+// Maps symbols with their respective oxidation numbers
+const elemsOxidationNumber = {
+  "al": [3],
+  "ag": [1],
+  "as": [-3, 3, 5],
+  "n": [1, 2, 3, 4, 5, -3],
+  "ba": [2],
+  "be": [2],
+  "b": [3],
+  "br": [1, 3, 5, -1],
+  "ca": [2],
+  "c": [2, 4, -4],
+  "cl": [1, 3, 5, 7, -1],
+  "cr": [6, 3, 2],
+  "co": [2, 3],
+  "fe": [2, 3],
+  "f": [-1],
+  "h": [1, -1],
+  "pb": [4, 2],
+  "li": [1],
+  "mg": [2],
+  "mn": [2, 3, 4, 6, 7],
+  "hg": [2, 1],
+  "ni": [2, 3],
+  "au": [3, 1],
+  "o": [-2, -1],
+  "pd": [2, 4],
+  "p": [3, 5, -3],
+  "pt": [2, 4],
+  "k": [1],
+  "cu": [2, 1],
+  "si": [2, 4, -4],
+  "na": [1],
+  "sn": [2, 4],
+  "sr": [2],
+  "ti": [4, 3, 2],
+  "w": [6, 5, 4, 3, 2],
+  "zn": [2],
+  "s": [-2, 6, 4],
+};
+
+const elemsElectronegativityTable = {
+  "n": 3.0,
+  "b": 2.0,
+  "br": 3.0,
+  "c": 2.6,
+  "cl": 3.2,
+  "f": 4.0,
+  "p": 2.2,
+  "s": 2.6,
+};
+
+// Maps symbols to their respective categories
+const elemsCatTable = {
+  "al": 1,
+  "ag": 1,
+  "as": 2,
+  "n": 2,
+  "ba": 1,
+  "be": 1,
+  "b": 2,
+  "br": 2,
+  "ca": 1,
+  "c": 2,
+  "cl": 2,
+  "cr": 1,
+  "co": 1,
+  "fe": 1,
+  "f": 2,
+  "h": 4,
+  "pb": 1,
+  "li": 1,
+  "mg": 1,
+  "mn": 1,
+  "hg": 1,
+  "ni": 1,
+  "au": 1,
+  "o": 3,
+  "pd": 1,
+  "p": 2,
+  "pt": 1,
+  "k": 1,
+  "cu": 1,
+  "si": 1,
+  "na": 1,
+  "sn": 1,
+  "sr": 1,
+  "ti": 1,
+  "w": 1,
+  "zn": 1,
+  "s": 2,
+};
+
+// Maps symbols to their respective names
+const elemsNamesTable = {
+  "al": "Alluminio",
+  "ag": "Argento",
+  "as": "Arsenico",
+  "n": "Azoto",
+  "ba": "Bario",
+  "be": "Berillio",
+  "b": "Boro",
+  "br": "Bromo",
+  "ca": "Calcio",
+  "c": "Carbonio",
+  "cl": "Cloro",
+  "cr": "Cromo",
+  "co": "Cobalto",
+  "fe": "Ferro",
+  "f": "Fluoro",
+  "h": "Idrogeno",
+  "pb": "Piombo",
+  "li": "Litio",
+  "mg": "Magnesio",
+  "mn": "Manganese",
+  "hg": "Mercurio",
+  "ni": "Nichel",
+  "au": "Oro",
+  "o": "Ossigeno",
+  "pd": "Palladio",
+  "p": "Fosforo",
+  "pt": "Platino",
+  "k": "Potassio",
+  "cu": "Rame",
+  "si": "Silicio",
+  "na": "Sodio",
+  "sn": "Stagno",
+  "sr": "Stronzio",
+  "ti": "Titanio",
+  "w": "Tungsteno",
+  "zn": "Zinco",
+  "s": "Zolfo",
+};
+
+// Maps symbols to their respective name's roots
+const elemsNamesRootTable = {
+  "n": "Nitr",
+  "b": "Bor",
+  "br": "Brom",
+  "c": "Carbon",
+  "cl": "Clor",
+  "f": "Fluor",
+  "p": "Fosf",
+  "s": "Solf",
+};
+
+// Maps the elements categories combinations to the respective compound category
+const compundCat = {
+  "[H, O]": "Ossido",
+  "[M, O]": "Ossido Basico",
+  "[N, O]": "Ossido Acido",
+  "[H, M]": "Idruro",
+  "[H, N]": "Idracido",
+  "[M, N]": "Sale",
+  "[N, N]": "Composto Molecolare",
+  "[H, M, O]": "Idrossido",
+  "[H, N, O]": "Ossiacido",
+};
+
+// Maps the indices to their respective prefix
+const prefixesByCount = {
+  1: "",
+  2: "Di",
+  3: "Tri",
+  4: "Tetra",
+  5: "Penta",
+  6: "Esa",
+  7: "Epta",
+  8: "Octa",
+  9: "Enna",
+  10: "Deca",
+};
+
+// List of tokens for short syntax support
+const tokens = [
+  '(',
+  ')',
+  ' ',
+];

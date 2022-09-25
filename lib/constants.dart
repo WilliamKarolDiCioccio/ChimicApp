@@ -10,4 +10,7 @@ class Constants {
   static const kPrimaryColor = kPrimarySwatch;
   static const double phoneWidth = 600;
   static const double tabletWidth = 900;
+
+  static const loremIpsum =
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc euismod sollicitudin convallis. Praesent sagittis ante nec magna...";
 }
